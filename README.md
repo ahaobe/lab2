@@ -237,7 +237,7 @@ remote.connection.default.password=19980618
 )
 
 #####g. 运行
-![校友目录](https://i.loli.net/2019/06/21/5d0c4db49649a20674.png
+![校友目录](https://i.loli.net/2019/06/21/5d0c51cb04ee487011.png
 )
 
 ![添加校友](https://i.loli.net/2019/06/21/5d0c4e40936a696807.png
