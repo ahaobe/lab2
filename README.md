@@ -20,12 +20,14 @@
 #####a. 下载解压配置环境变量
 
 #####b. 启动JBOSS
+
 运行Wildfly下bin目录下的standalone.bat文件，访问localhost:8080，出现Wildfly的欢迎界面。
 
 ![安装成功界面](https://i.loli.net/2019/06/21/5d0c3a8e877ae98668.png
 )
 
 #####c. 添加管理用户
+
 运行bin下的add-user文件，根据命令行的提示信息填写自己的用户名和密码。然后启动JBOSS，访问localhost:9990，输入设置的账号密码，访问后台页面。
 
 ![登录后台页面](https://i.loli.net/2019/06/21/5d0c3def5a5b179332.png)
@@ -34,7 +36,9 @@
 )
 
 ####2. 配置mysql数据库的数据源
+
 #####a. 为Wildfly添加mysql的驱动jar包的依赖
+
 在官网寻找mysql连接jar包（mysql-connector-java-5.1.34.jar）下载。在JBOSS_HOME/modules/system/layers/base/com路径下，创建mysql文件夹，在mysql下创建main文件夹，在mysql/main下创建一个module.xml，其内容为：
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -50,6 +54,7 @@
 ```
 
 #####b. 修改Wildfly的配置
+
 打开JBOSS_HOME/standalone/configuration/standalone.xml文件，找到配置datasource的subsystem标签，里面包含datasource标签，Wildfly初始配置了一个样例数据源ExampleDS，其驱动是h2，修改该标签为：
 
 ```
@@ -78,7 +83,8 @@
 ```
 把ExampleDS对应修改为MysqlDS，修改connection-url为对应的数据库名，以及security标签内的用户名和密码。
 
-#####c. 进入JBOSS后台页面，修改默认设置。启动JBOSS，进入后台页面，找到Configuration->Subsystem->EE->View，在左侧菜单栏找到Default Bindings，点击Edit，将ExampleDS改为MysqlDS，保存。
+#####c. 进入JBOSS后台页面，修改默认设置。
+启动JBOSS，进入后台页面，找到Configuration->Subsystem->EE->View，在左侧菜单栏找到Default Bindings，点击Edit，将ExampleDS改为MysqlDS，保存。
 
 ![修改后台配置](https://i.loli.net/2019/06/21/5d0c3fd8223cc26604.png
 )
@@ -87,12 +93,16 @@
 ####3. 创建项目
 
 #####a. 数据库建表。
+
 ![数据库建表](https://i.loli.net/2019/06/21/5d0c422f9ac5d11910.png)
 admin表的字段有id、account、password、登录次数login_count、上次登录时间last_login_time；log表的字段有id、adminId、info。
 
 #####b. idea创建一个空的Java项目。
+
 #####c. 创建server子模块。
+
 New->Module，选择Java Enterprise，选中Web Application和EJB: Enterprise Java Bean。
+
 ######① 创建Login接口
 ```
 import javax.ejb.Remote;
@@ -161,15 +171,19 @@ public class LoginBean implements Login {
 ![AdminBean](https://i.loli.net/2019/06/21/5d0c45f1b451093412.png)
 
 ######④创建Alumni类
+
 ![Alumni类](https://i.loli.net/2019/06/21/5d0c46dce31c815446.png)
 
 ######⑤创建校友生成器：
+
 ![AlumniCreatorBean](https://i.loli.net/2019/06/21/5d0c49129b9ea58535.png
 )
 ######⑥创建DataAccess类，建立和mysql数据库的连接
+
 ![DataAccess类](https://i.loli.net/2019/06/21/5d0c49ab4cf3742001.png)
 
 #####d. 创建client子模块。
+
 client端包含server端定义的接口——Login接口、Admin接口、AlumniCreator接口。
 用户界面有登录页login.html、主页home.jsp、查找结果页searchAlumniByName.jsp、统计结果页searchAlumni.jsp，判定表单调用接口的login.jsp、addAlumni.jsp、deleteAlumni.jsp、modifyAlumni.jsp、createAlumni.jsp、logOut.jsp、autoLogOut.jsp。
 
@@ -211,7 +225,6 @@ window.setInterval(autoLogStatus, 1000);
 
 在主页设置计时器，每隔一秒更新一次，若鼠标在一定时间内未移动，则超过规定时间后调用autoLogOut.jsp，自动退出。
 
-
 #####e. 添加jboss-ejb-client.properties文件，放在client端的src文件夹下
 
 ```properties
@@ -230,6 +243,7 @@ remote.connection.default.password=19980618
 
 
 #####f. 配置JBoss
+
 在右上角找到Edit Configurations，在左边菜单栏找到JBoss Server，如果没有可以点击左上角的"+"添加JBoss Server->Local，然后填写Name等信息。在Deployment选项卡中，添加server和client的war包。
 
 ![配置JBoss](https://i.loli.net/2019/06/21/5d0c4c46705ce78910.png
@@ -239,6 +253,7 @@ remote.connection.default.password=19980618
 )
 
 #####g. 运行
+
 ![校友目录](https://i.loli.net/2019/06/21/5d0c51cb04ee487011.png
 )
 
