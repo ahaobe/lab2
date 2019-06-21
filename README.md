@@ -18,11 +18,13 @@
 
 ### 1. 安装Wildfly服务器
 #####a. 下载解压配置环境变量
+
 #####b. 启动JBOSS
 运行Wildfly下bin目录下的standalone.bat文件，访问localhost:8080，出现Wildfly的欢迎界面。
 
 ![安装成功界面](https://i.loli.net/2019/06/21/5d0c3a8e877ae98668.png
 )
+
 #####c. 添加管理用户
 运行bin下的add-user文件，根据命令行的提示信息填写自己的用户名和密码。然后启动JBOSS，访问localhost:9990，输入设置的账号密码，访问后台页面。
 
@@ -34,7 +36,7 @@
 ####2. 配置mysql数据库的数据源
 #####a. 为Wildfly添加mysql的驱动jar包的依赖
 在官网寻找mysql连接jar包（mysql-connector-java-5.1.34.jar）下载。在JBOSS_HOME/modules/system/layers/base/com路径下，创建mysql文件夹，在mysql下创建main文件夹，在mysql/main下创建一个module.xml，其内容为：
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="com.mysql" xmlns="urn:jboss:module:1.5">
     <resources>
@@ -50,7 +52,7 @@
 #####b. 修改Wildfly的配置
 打开JBOSS_HOME/standalone/configuration/standalone.xml文件，找到配置datasource的subsystem标签，里面包含datasource标签，Wildfly初始配置了一个样例数据源ExampleDS，其驱动是h2，修改该标签为：
 
-```xml
+```
 <subsystem xmlns="urn:jboss:domain:datasources:5.0">
   <datasources>
     <datasource jndi-name="java:jboss/datasources/MysqlDS" pool-name="MysqlDS" enabled="true" use-java-context="true">
