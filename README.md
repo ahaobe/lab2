@@ -84,6 +84,7 @@
 把ExampleDS对应修改为MysqlDS，修改connection-url为对应的数据库名，以及security标签内的用户名和密码。
 
 #####c. 进入JBOSS后台页面，修改默认设置。
+
 启动JBOSS，进入后台页面，找到Configuration->Subsystem->EE->View，在左侧菜单栏找到Default Bindings，点击Edit，将ExampleDS改为MysqlDS，保存。
 
 ![修改后台配置](https://i.loli.net/2019/06/21/5d0c3fd8223cc26604.png
@@ -95,6 +96,7 @@
 #####a. 数据库建表。
 
 ![数据库建表](https://i.loli.net/2019/06/21/5d0c422f9ac5d11910.png)
+
 admin表的字段有id、account、password、登录次数login_count、上次登录时间last_login_time；log表的字段有id、adminId、info。
 
 #####b. idea创建一个空的Java项目。
